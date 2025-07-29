@@ -857,6 +857,8 @@ nav div a:hover {
   }
 }
 @media (max-width: 768px) {
+	    .custom-card {
+        height: 528px;}
 
   nav div a{
         margin: 0 10px;
