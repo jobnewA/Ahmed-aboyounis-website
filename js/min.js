@@ -1,7 +1,6 @@
-
-  window.addEventListener("load", function () {
-    document.querySelector(".page-loader").style.display = "none";
-  });
+window.addEventListener("load", function () {
+  document.querySelector(".page-loader").style.display = "none";
+});
 
 function toggleTheme() {
   const root = document.documentElement;
@@ -24,9 +23,6 @@ window.addEventListener("DOMContentLoaded", () => {
   icon.className = isDark ? "bi bi-lightbulb-fill" : "bi bi-lightbulb";
 });
 
-
-
-
 const cards = document.querySelectorAll(".card");
 const dots = document.querySelectorAll(".dot");
 const leftArrow = document.querySelector(".nav-arrow.left");
@@ -35,179 +31,175 @@ let currentIndex = 0;
 let isAnimating = false;
 
 function updateCarousel(newIndex) {
-	if (isAnimating) return;
-	isAnimating = true;
+  if (isAnimating) return;
+  isAnimating = true;
 
-	currentIndex = (newIndex + cards.length) % cards.length;
+  currentIndex = (newIndex + cards.length) % cards.length;
 
-	cards.forEach((card, i) => {
-		const offset = (i - currentIndex + cards.length) % cards.length;
+  cards.forEach((card, i) => {
+    const offset = (i - currentIndex + cards.length) % cards.length;
 
-		card.classList.remove(
-			"center",
-			"left-1",
-			"left-2",
-			"right-1",
-			"right-2",
-			"hidden"
-		);
+    card.classList.remove(
+      "center",
+      "left-1",
+      "left-2",
+      "right-1",
+      "right-2",
+      "hidden"
+    );
 
-		if (offset === 0) {
-			card.classList.add("center");
-		} else if (offset === 1) {
-			card.classList.add("right-1");
-		} else if (offset === 2) {
-			card.classList.add("right-2");
-		} else if (offset === cards.length - 1) {
-			card.classList.add("left-1");
-		} else if (offset === cards.length - 2) {
-			card.classList.add("left-2");
-		} else {
-			card.classList.add("hidden");
-		}
-	});
+    if (offset === 0) {
+      card.classList.add("center");
+    } else if (offset === 1) {
+      card.classList.add("right-1");
+    } else if (offset === 2) {
+      card.classList.add("right-2");
+    } else if (offset === cards.length - 1) {
+      card.classList.add("left-1");
+    } else if (offset === cards.length - 2) {
+      card.classList.add("left-2");
+    } else {
+      card.classList.add("hidden");
+    }
+  });
 
-	dots.forEach((dot, i) => {
-		dot.classList.toggle("active", i === currentIndex);
-	});
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === currentIndex);
+  });
 
-	setTimeout(() => {
-		isAnimating = false;
-	}, 800);
+  setTimeout(() => {
+    isAnimating = false;
+  }, 800);
 }
 
 leftArrow.addEventListener("click", () => {
-	updateCarousel(currentIndex - 1);
+  updateCarousel(currentIndex - 1);
 });
 
 rightArrow.addEventListener("click", () => {
-	updateCarousel(currentIndex + 1);
+  updateCarousel(currentIndex + 1);
 });
 
 dots.forEach((dot, i) => {
-	dot.addEventListener("click", () => {
-		updateCarousel(i);
-	});
+  dot.addEventListener("click", () => {
+    updateCarousel(i);
+  });
 });
 
 cards.forEach((card, i) => {
-	card.addEventListener("click", () => {
-		updateCarousel(i);
-	});
+  card.addEventListener("click", () => {
+    updateCarousel(i);
+  });
 });
 
 document.addEventListener("keydown", (e) => {
-	if (e.key === "ArrowLeft") {
-		updateCarousel(currentIndex - 1);
-	} else if (e.key === "ArrowRight") {
-		updateCarousel(currentIndex + 1);
-	}
+  if (e.key === "ArrowLeft") {
+    updateCarousel(currentIndex - 1);
+  } else if (e.key === "ArrowRight") {
+    updateCarousel(currentIndex + 1);
+  }
 });
 
 let touchStartX = 0;
 let touchEndX = 0;
 
 document.addEventListener("touchstart", (e) => {
-	touchStartX = e.changedTouches[0].screenX;
+  touchStartX = e.changedTouches[0].screenX;
 });
 
 document.addEventListener("touchend", (e) => {
-	touchEndX = e.changedTouches[0].screenX;
-	handleSwipe();
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
 });
 
 function handleSwipe() {
-	const swipeThreshold = 50;
-	const diff = touchStartX - touchEndX;
+  const swipeThreshold = 50;
+  const diff = touchStartX - touchEndX;
 
-	if (Math.abs(diff) > swipeThreshold) {
-		if (diff > 0) {
-			updateCarousel(currentIndex + 1);
-		} else {
-			updateCarousel(currentIndex - 1);
-		}
-	}
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) {
+      updateCarousel(currentIndex + 1);
+    } else {
+      updateCarousel(currentIndex - 1);
+    }
+  }
 }
 
 updateCarousel(0);
 
+window.onload = function () {
+  try {
+    TagCanvas.Start("cloud", "tags", {
+      textColour: null, // نخلي الألوان من الـ <a style="color:...">
+      outlineMethod: "none", // نشيل البوردر عند الوقوف
+      reverse: true,
+      depth: 0.8,
+      maxSpeed: 0.05,
+      textFont: "Arial, sans-serif",
+      textHeight: 10, // حجم الخط
+      freezeActive: true,
+      shuffleTags: true,
+    });
+  } catch (e) {
+    document.getElementById("cloud").outerHTML =
+      "<div>TagCanvas not loaded!</div>";
+  }
+};
 
-  window.onload = function() {
-    try {
-      TagCanvas.Start('cloud', 'tags', {
-        textColour: null, // نخلي الألوان من الـ <a style="color:...">
-        outlineMethod: 'none', // نشيل البوردر عند الوقوف
-        reverse: true,
-        depth: 0.8,
-        maxSpeed: 0.05,
-        textFont: 'Arial, sans-serif',
-        textHeight: 10, // حجم الخط
-        freezeActive: true,
-        shuffleTags: true
-      });
-    } catch(e) {
-      document.getElementById('cloud').outerHTML = '<div>TagCanvas not loaded!</div>';
-    }
-  };
+const text =
+  "Hi, I'm Ahmed Aboyounis an expert in SEO and a WordPress Developer, with solid experience in solving search engine issues and optimizing website performance. I help businesses grow online by combining smart strategies with clean, high-performing code.";
 
+const container = document.getElementById("animatedText");
+const words = text.split(" ");
 
-  const text =
-    "Hi, I'm Ahmed Aboyounis an expert in SEO and a WordPress Developer, with solid experience in solving search engine issues and optimizing website performance. I help businesses grow online by combining smart strategies with clean, high-performing code.";
+gsap.registerPlugin(ScrollTrigger);
 
-  const container = document.getElementById("animatedText");
-  const words = text.split(" ");
+let wordSpans = [];
 
-  gsap.registerPlugin(ScrollTrigger);
+// إنشاء عناصر span لكل كلمة وإخفائها
+words.forEach((word, index) => {
+  const span = document.createElement("span");
+  span.textContent = word + " ";
+  span.style.opacity = 0;
+  container.appendChild(span);
+  wordSpans.push(span);
+});
 
-  let wordSpans = [];
+// حركة الظهور عند السحب لأسفل
+gsap.to(wordSpans, {
+  scrollTrigger: {
+    trigger: "#hero-intro",
+    start: "top top",
+    end: "+=100%",
+    scrub: true,
+    pin: true,
+  },
+  opacity: 1,
+  stagger: {
+    each: 0.05,
+  },
+  ease: "power2.out",
+});
 
-  // إنشاء عناصر span لكل كلمة وإخفائها
-  words.forEach((word, index) => {
-    const span = document.createElement("span");
-    span.textContent = word + " ";
-    span.style.opacity = 0;
-    container.appendChild(span);
-    wordSpans.push(span);
-  });
+// حركة الاختفاء عند الرجوع لأعلى
+gsap.to(wordSpans, {
+  scrollTrigger: {
+    trigger: "#hero-intro",
+    start: "top top",
+    end: "+=100%",
+    scrub: true,
+  },
+  opacity: (i, target, t) => 1 - i / wordSpans.length,
+  stagger: {
+    each: 0.05,
+  },
+  ease: "power2.in",
+});
 
-  // حركة الظهور عند السحب لأسفل
-  gsap.to(wordSpans, {
-    scrollTrigger: {
-      trigger: "#hero-intro",
-      start: "top top",
-      end: "+=100%",
-      scrub: true,
-      pin: true,
-    },
-    opacity: 1,
-    stagger: {
-      each: 0.05,
-    },
-    ease: "power2.out"
-  });
-
-  // حركة الاختفاء عند الرجوع لأعلى
-  gsap.to(wordSpans, {
-    scrollTrigger: {
-      trigger: "#hero-intro",
-      start: "top top",
-      end: "+=100%",
-      scrub: true,
-    },
-    opacity: (i, target, t) => 1 - (i / wordSpans.length),
-    stagger: {
-      each: 0.05,
-    },
-    ease: "power2.in"
-  });
-
-
-
-
-
-const s = document.createElement('script');
-s.src = 'https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js';
-s.type = 'module';
+const s = document.createElement("script");
+s.src =
+  "https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js";
+s.type = "module";
 document.head.appendChild(s);
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -226,7 +218,10 @@ document.addEventListener("DOMContentLoaded", function () {
   document.body.appendChild(chatButton);
 
   const lottieIcon = document.createElement("dotlottie-wc");
-  lottieIcon.setAttribute("src", "https://lottie.host/b51458ca-1033-4804-81d2-c107876d16c2/0DR3YPLNSL.json");
+  lottieIcon.setAttribute(
+    "src",
+    "https://lottie.host/b51458ca-1033-4804-81d2-c107876d16c2/0DR3YPLNSL.json"
+  );
   lottieIcon.setAttribute("autoplay", "");
   lottieIcon.setAttribute("loop", "");
   lottieIcon.setAttribute("speed", "1");
@@ -249,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
   `;
 
   let chatHeader = document.createElement("div");
-  chatHeader.innerText = "🤖 مساعد شخصي";
+  chatHeader.innerText = "🤖 Personal Assistant";
   chatHeader.style.cssText = `
     background: #0C62A4;
     color: var(--text-color);
@@ -269,18 +264,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let optionsContainer = document.createElement("div");
 
-  let questions = {
-     "💻 هل تقدم خدمات تصميم مواقع؟": "✅ نعم، أقدم خدمات تطوير مواقع ووردبريس والسيو.",
-  "📈 هل يمكنك مساعدتي في تحسين نتائج البحث؟": "🔍 بالتأكيد، أعمل على تحسين ظهور موقعك في نتائج البحث.",
-  "🧩 هل تقدم خدمات تحسين سرعة الموقع؟": "⚡ نعم، أعمل على تحسين سرعة تحميل الموقع وتجربة المستخدم بشكل كبير.",
-  "🔒 هل تهتم بتأمين المواقع؟": "🛡️ طبعًا، أعمل على تأمين المواقع ضد الثغرات وحماية البيانات.",
-  "🌐 هل توفر خدمة حجز دومين واستضافة؟": "🌍 نعم، أستطيع مساعدتك في اختيار وحجز الدومين المناسب وخدمة استضافة موثوقة.",
-  "🛠️ هل تعمل على إصلاح مشاكل المواقع؟": "🔧 بالتأكيد، أُصلح مشاكل المواقع سواء كانت أخطاء برمجية أو مشاكل ظهور أو غيرها.",
-  "🎯 هل توفر خدمة استشارة مجانية؟": "📞 نعم، يمكنك التواصل معي للحصول على استشارة أولية مجانية لمشروعك.",
-  "📊 هل تقوم بتحليل المواقع؟": "📈 نعم، أقدم تقارير مفصلة عن أداء الموقع ومشاكله وفرص تحسينه.",
-  };
+let questions = {
+  "Who am I?":
+    "I am Ahmed Aboyounis, a Computer Science student, WordPress Developer, and SEO Specialist. I work on developing high-performance websites and improving their visibility on search engines.",
 
-  Object.keys(questions).forEach(q => {
+  "What is your professional experience?":
+    "I have experience as a freelance programmer for one year, worked as an SEO specialist in companies like GoalMakers, Racing, and Saturn, and currently work as a WordPress developer at GoalMakers.",
+
+  "What are your areas of expertise?":
+    "WordPress development from scratch, theme and plugin development, SEO optimization, Python programming tools, and UI/UX design.",
+
+  "What recent projects have you completed?":
+    "I developed a WordPress Custom Forms Plugin, an Abaya Size Calculator on Zed, a custom 404 page on WordPress, and a Python tool to connect an e-commerce site with a billing platform.",
+
+  "What are your SEO results?":
+    "In 3 months, I improved website visibility from unknown to first-page ranking, increased CTR by 70%, and indexed over 100 new pages.",
+
+  "What certifications do you have?":
+    "Certifications in Front End from Createivo, Advanced SEO from Seomostamr, and WordPress development from YouTube and advanced workshops.",
+
+  "Which tools do you use?":
+    "WordPress, PHP, WooCommerce, Salla, Zid, Shopify, Ahrefs, SEMrush, Google Analytics, Google Search Console, Google Tag Manager, Google Maps.",
+
+  "Can I download your CV?":
+    "Yes, you can download my CV directly from the website.",
+
+  "How can I contact you?":
+    "Via email or WhatsApp, and you can also follow me on LinkedIn, Facebook, and Instagram."
+};
+
+
+  Object.keys(questions).forEach((q) => {
     let btn = document.createElement("button");
     btn.innerText = q;
     btn.style.cssText = `
@@ -329,9 +343,9 @@ document.addEventListener("DOMContentLoaded", function () {
     optionsContainer.appendChild(btn);
   });
 
-  // زر واتساب
+  // WhatsApp button
   let notFoundBtn = document.createElement("button");
-  notFoundBtn.innerText = "📲 تحدث معي على واتساب";
+  notFoundBtn.innerText = "📲 Chat with me on WhatsApp";
   notFoundBtn.style.cssText = `
     background: #25D366;
     color: white;
@@ -348,9 +362,9 @@ document.addEventListener("DOMContentLoaded", function () {
   };
   optionsContainer.appendChild(notFoundBtn);
 
-  // زر الاتصال المباشر
+  // Direct call button
   let callButton = document.createElement("button");
-  callButton.innerText = "📞 اتصل الآن";
+  callButton.innerText = "📞 Call Now";
   callButton.style.cssText = `
     background: #28a745;
     color: white;
@@ -381,7 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
         font-size: 13px;
         text-align: right;
       `;
-      welcome.innerText = "👋 مرحبًا! كيف يمكنني مساعدتك اليوم؟";
+      welcome.innerText = "👋 Hello! How can I assist you today?";
       chatMessages.appendChild(welcome);
       chatMessages.appendChild(optionsContainer);
     }
@@ -392,24 +406,83 @@ document.addEventListener("DOMContentLoaded", function () {
   document.body.appendChild(chatContainer);
 });
 
-
-
-
-document.getElementById("contactForm").addEventListener("submit", function(e) {
+document.getElementById("contactForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const message = document.getElementById("message").value.trim();
 
-  const gmailLink = `https://mail.google.com/mail/u/0/?to=ahmedaboyouniscodee@gmail.com&fs=1&tf=cm&su=${encodeURIComponent("رسالة من " + name)}&body=${encodeURIComponent("البريد: " + email + "\n\n" + message)}`;
+  const gmailLink = `https://mail.google.com/mail/u/0/?to=ahmedaboyouniscodee@gmail.com&fs=1&tf=cm&su=${encodeURIComponent(
+    "رسالة من " + name
+  )}&body=${encodeURIComponent("البريد: " + email + "\n\n" + message)}`;
 
   window.open(gmailLink, "_blank"); // تفتح في تبويب جديد
 });
 
-
-
-const script = document.createElement('script');
-script.src = 'https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js';
+const script = document.createElement("script");
+script.src =
+  "https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js";
 script.onload = () => VanillaTilt.init(document.querySelectorAll(".impact"));
 document.head.appendChild(script);
+
+// <!-- new section -->
+const projectCards = document.querySelectorAll(".project-card");
+const popup = document.getElementById("popup");
+const popupImg = document.getElementById("popup-img");
+const popupTitle = document.getElementById("popup-title");
+const popupDesc = document.getElementById("popup-desc");
+const closeBtn = document.querySelector(".close-btn");
+
+// Show Popup
+projectCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    const videoSrc = card.dataset.video; // تحقق لو فيه فيديو
+    const imgSrc = card.dataset.img;
+
+    // إزالة أي فيديو موجود مسبقًا في Popup
+    const existingVideo = document.getElementById("popup-video");
+    if (existingVideo) {
+      existingVideo.remove();
+    }
+
+    if (videoSrc) {
+      popupImg.style.display = "none"; // اخفاء الصورة
+      const popupVideo = document.createElement("video");
+      popupVideo.id = "popup-video";
+      popupVideo.src = videoSrc;
+      popupVideo.autoplay = true;
+      popupVideo.loop = true;
+      popupVideo.muted = true;
+      popupVideo.playsInline = true;
+      popupVideo.style.width = "100%";
+      popupVideo.style.borderRadius = "10px";
+      popupVideo.style.marginBottom = "15px";
+      popup.querySelector(".popup-content").prepend(popupVideo);
+
+      // تشغيل الفيديو فورًا
+      popupVideo.play();
+    } else {
+      popupImg.style.display = "block";
+      popupImg.src = imgSrc;
+    }
+
+    popupTitle.textContent = card.dataset.title;
+    popupDesc.textContent = card.dataset.desc;
+    popup.style.display = "flex";
+  });
+});
+// Close Popup
+closeBtn.addEventListener("click", () => {
+  const popupVideo = document.getElementById("popup-video");
+  if (popupVideo) popupVideo.pause(); // إيقاف الفيديو عند إغلاق
+  popup.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === popup) {
+    const popupVideo = document.getElementById("popup-video");
+    if (popupVideo) popupVideo.pause();
+    popup.style.display = "none";
+  }
+});
