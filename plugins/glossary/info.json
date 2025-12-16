@@ -1,0 +1,15 @@
+{
+  "name": "Glossary Plugin",
+  "slug": "glossary-plugin",
+  "version": "2.1",
+  "author": "<a href='https://jobnewa.github.io'>Ahmed Aboyounis</a>",
+  "homepage": "https://jobnewa.github.io/Ahmed-aboyounis-website/plugins/glossary/",
+  "requires": "5.5",
+  "tested": "6.5",
+  "download_link": "https://jobnewa.github.io/Ahmed-aboyounis-website/plugins/glossary/glossary-plugin.zip",
+  "sections": {
+    "description": "نظام Glossary كامل لإدارة المصطلحات داخل ووردبريس.",
+    "installation": "ارفع الإضافة وفعّلها من لوحة التحكم.",
+    "changelog": "<strong>2.1</strong><ul><li>تحسينات عامة</li></ul><strong>2.0</strong><ul><li>أول إصدار مستقر</li></ul>"
+  }
+}
