@@ -486,3 +486,33 @@ window.addEventListener("click", (e) => {
     popup.style.display = "none";
   }
 });
+
+
+(function () {
+  const count = 40;
+
+  for (let i = 0; i < count; i++) {
+    let s = document.createElement("div");
+    s.innerHTML = "❄";
+    s.style.cssText = `
+      position:fixed;
+      top:-20px;
+      left:${Math.random() * innerWidth}px;
+      font-size:${Math.random() * 10 + 10}px;
+      opacity:${Math.random()};
+      pointer-events:none;
+      color:white;
+      z-index: 1000;
+      animation: fall ${Math.random() * 6 + 6}s linear infinite;
+    `;
+    document.body.appendChild(s);
+  }
+
+  const style = document.createElement("style");
+  style.innerHTML = `
+    @keyframes fall {
+      to { transform: translateY(100vh); }
+    }
+  `;
+  document.head.appendChild(style);
+})();
